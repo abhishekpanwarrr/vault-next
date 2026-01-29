@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
 import { Suspense } from "react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 async function UserDetails() {
   const supabase = await createClient();
@@ -18,23 +20,29 @@ async function UserDetails() {
 
 export default function ProtectedPage() {
   return (
-    <div className="flex-1 w-full flex flex-col gap-12 bg-red-400">
-      <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-        <InfoIcon size="16" strokeWidth={2} />
-        This is a protected page that you can only see as an authenticated user
+    <div className="flex-1 w-full flex flex-col gap-12 min-h-screen">
+      <div className="max-w-7xl w-full mx-auto">
+        <div className="bg-accent max-w-5xl mx-auto text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
+          <InfoIcon size="16" strokeWidth={2} />
+          This is a protected page that you can only see as an authenticated
+          user
+        </div>
+        <div className="max-w-5xl mx-auto flex items-center justify-center">
+          <Link href={"/protected/dashboard"}>
+            <Button className="flex items-center gap-2 mt-8" size="sm">
+              <svg
+                className="h-3 w-3"
+                viewBox="0 0 76 65"
+                fill="hsl(var(--background)/1)"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="inherit" />
+              </svg>
+              <span>Go to Dashboard</span>
+            </Button>
+          </Link>
+        </div>
       </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          <Suspense>
-            <UserDetails />
-          </Suspense>
-        </pre>
-      </div>
-      {/* <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
-      </div> */}
     </div>
   );
 }
