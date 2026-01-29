@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, Suspense } from "react";
 interface Props {
   children: ReactNode;
 }
@@ -26,7 +26,9 @@ const DashboardLayout: FC<Props> = ({ children }) => {
           </a>
         </nav>
       </aside>
-      <main className="flex-1 p-6">{children}</main>
+      <main className="flex-1 p-6">
+        <Suspense fallback={<div>Loading project...</div>}>{children}</Suspense>
+      </main>
     </div>
   );
 };
